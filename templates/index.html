@@ -1,4 +1,4 @@
-<!-- START OF IMPROVED index.html -->
+<!-- START OF MODIFIED index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,48 +9,67 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
       /* Header styling */
-      .header-area { 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        padding: 0 15px; 
-        background-color: #eee; 
-        border-bottom: 1px solid #ddd; 
+      .header-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        background-color: #eee;
+        border-bottom: 1px solid #ddd;
       }
-      .header-area h1 { 
-        padding: 15px 0; 
-        margin: 0; 
-        flex-grow: 1; 
-        text-align: center; 
-        font-size: 1.2em; 
-        border-bottom: none; 
+      .header-area h1 {
+        padding: 15px 0;
+        margin: 0;
+        flex-grow: 1;
+        text-align: center;
+        font-size: 1.2em;
+        border-bottom: none;
         background-color: transparent;
       }
-      .header-controls { 
-        display: flex; 
-        align-items: center; 
-        gap: 15px;
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Adjusted gap slightly */
       }
-      .header-button { 
-        background: none; 
-        border: none; 
-        color: #007bff; 
-        cursor: pointer; 
-        font-size: 0.9em; 
-        padding: 5px; 
+      .header-button {
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        font-size: 0.9em;
+        padding: 5px;
+        display: flex; /* Align icon and text */
+        align-items: center;
+        gap: 5px; /* Gap between icon and text */
       }
-      .header-button:hover { 
-        text-decoration: underline; 
+      .header-button i { /* Target icon specifically */
+        font-size: 1.1em; /* Make icon slightly larger */
       }
-      .logout-link { 
-        color: #dc3545; 
-        text-decoration: none; 
-        font-size: 0.9em; 
+      .header-button:hover {
+        text-decoration: underline;
+        color: #0056b3; /* Darker hover color */
       }
-      .logout-link:hover { 
-        text-decoration: underline; 
+       /* Style specifically for the voice toggle button */
+      #toggleVoiceButton i {
+        width: 1.2em; /* Ensure consistent width for icons */
+        text-align: center;
       }
-      
+      .logout-link {
+        color: #dc3545;
+        text-decoration: none;
+        font-size: 0.9em;
+        display: flex; /* Align icon and text */
+        align-items: center;
+        gap: 5px; /* Gap between icon and text */
+      }
+      .logout-link i { /* Target icon specifically */
+        font-size: 1.1em; /* Make icon slightly larger */
+      }
+      .logout-link:hover {
+        text-decoration: underline;
+        color: #c82333; /* Darker hover color */
+      }
+
       /* Chat styling improvements */
       .message {
         padding: 10px 15px;
@@ -58,6 +77,7 @@
         border-radius: 10px;
         max-width: 80%;
         word-wrap: break-word;
+        line-height: 1.4; /* Improve readability */
       }
       .user-message {
         background-color: #007bff;
@@ -71,32 +91,67 @@
         align-self: flex-start;
         margin-right: auto;
       }
+      /* Bot message formatting adjustments */
       .bot-message h1, .bot-message h2, .bot-message h3 {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+        margin-top: 0.7em;
+        margin-bottom: 0.3em;
+        line-height: 1.2;
       }
       .bot-message h1 { font-size: 1.3em; }
       .bot-message h2 { font-size: 1.2em; }
       .bot-message h3 { font-size: 1.1em; }
       .bot-message ul, .bot-message ol {
-        margin: 0.5em 0;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
         padding-left: 1.5em;
+      }
+       .bot-message li {
+        margin-bottom: 0.3em;
       }
       .bot-message strong {
         font-weight: bold;
       }
+      .bot-message code {
+         background-color: #e0e0e0;
+         padding: 0.1em 0.4em;
+         border-radius: 3px;
+         font-family: monospace;
+         font-size: 0.9em;
+      }
+       .bot-message pre {
+         background-color: #e0e0e0;
+         padding: 10px;
+         border-radius: 4px;
+         overflow-x: auto; /* Allow horizontal scrolling for long code */
+         margin: 0.5em 0;
+      }
+      .bot-message pre code {
+        background-color: transparent; /* Code inside pre shouldn't have double background */
+        padding: 0;
+      }
+
       .input-area {
         display: flex;
+        /* align-items: center; Vertically align items */
+        /* Change alignment for textarea */
+        align-items: flex-end; /* Align items to the bottom */
         padding: 10px;
         border-top: 1px solid #ddd;
         background-color: #f9f9f9;
       }
-      .input-area input {
+      /* --- MODIFIED: Target textarea instead of input[type="text"] --- */
+      .input-area textarea#userInput {
         flex-grow: 1;
-        padding: 10px;
+        padding: 10px 15px; /* Adjust padding */
         border: 1px solid #ccc;
-        border-radius: 20px;
+        border-radius: 20px; /* Keep rounded look */
         margin-right: 10px;
+        font-size: 1em; /* Ensure consistent font size */
+        line-height: 1.4;
+        resize: none; /* Disable manual resizing handle */
+        overflow-y: hidden; /* Hide scrollbar initially for auto-resize */
+        min-height: 20px; /* Minimum height based on line-height/padding */
+        /* max-height: 150px; Optional: set a max height */
       }
       .input-area button {
         width: 40px;
@@ -106,8 +161,21 @@
         background-color: #007bff;
         color: white;
         cursor: pointer;
+        flex-shrink: 0; /* Prevent buttons from shrinking */
         margin-left: 5px;
+        /* Adjust margin-bottom slightly if needed due to align-items: flex-end */
+        margin-bottom: 2px; /* Example adjustment */
+        display: flex; /* Center icon */
+        justify-content: center;
+        align-items: center;
+        font-size: 1.1em; /* Adjust icon size */
       }
+       .input-area button.listening { /* Style for voice input button when active */
+          background-color: #dc3545;
+       }
+       .input-area button.listening:hover {
+          background-color: #c82333;
+       }
       .input-area button:hover {
         background-color: #0056b3;
       }
@@ -115,36 +183,45 @@
         background-color: #ccc;
         cursor: not-allowed;
       }
-      
+
       /* File upload styling */
       #fileInput {
         display: none; /* Hide the actual file input */
       }
       #fileUploadButton {
-        background-color: #28a745;
+        background-color: #28a745; /* Green */
       }
       #fileUploadButton:hover {
         background-color: #218838;
       }
-      
+
       /* Status indicator styling */
       .status-indicator {
         text-align: center;
-        padding: 5px;
+        padding: 5px 10px; /* Add horizontal padding */
         font-size: 0.8em;
         color: #666;
-        height: 20px;
+        height: 20px; /* Fixed height */
+        line-height: 20px; /* Vertically center text */
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex; /* Use flex for spinner alignment */
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
       }
-      
+
       /* Spinner for loading states */
       .spinner {
         display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 3px solid rgba(0, 123, 255, 0.3);
+        width: 16px; /* Slightly smaller spinner */
+        height: 16px;
+        border: 2px solid rgba(0, 123, 255, 0.3);
         border-radius: 50%;
         border-top-color: #007bff;
         animation: spin 1s linear infinite;
+        flex-shrink: 0; /* Prevent spinner from shrinking */
       }
       @keyframes spin {
         to { transform: rotate(360deg); }
@@ -156,6 +233,9 @@
       <div class="header-area">
         <h1>Halo Assistant</h1>
         <div class="header-controls">
+             <button id="toggleVoiceButton" class="header-button" title="Enable Voice Responses">
+                  <i id="voiceIcon" class="fas fa-volume-mute"></i> <!-- Changed default icon to mute -->
+             </button>
              <button id="startOverButton" class="header-button" title="Start New Conversation">
                   <i class="fas fa-sync-alt"></i> Start Over
              </button>
@@ -165,23 +245,30 @@
         </div>
       </div>
       <div id="chatbox">
+        <!-- Chat history rendered by Flask -->
         {% for message in chat_history %}
         <div class="message {{ message.role }}-message">
-          {% if message.role == 'model' %}
+          {% if message.role == 'bot' or message.role == 'model' %} {# Adjust role names if needed #}
+             {# Render pre-formatted HTML from backend safely #}
+             {# Assuming Flask already sanitizes or generates safe HTML #}
             {{ message.content|safe }}
           {% else %}
-            {{ message.content }}
+            {# Display user message safely, handling newlines #}
+            <pre style="white-space: pre-wrap; word-wrap: break-word; margin: 0; font-family: inherit; font-size: inherit;">{{ message.content | escape }}</pre>
           {% endif %}
         </div>
         {% endfor %}
-        {% if not chat_history %}
-        <div class="message bot-message">
+        <!-- Initial message example - might be handled by JS now -->
+        {# {% if not chat_history %}
+        <div class="message bot-message" id="initialBotMessage">
           Hello {{ username }}! How can I help you with Halo tickets today?
         </div>
-        {% endif %}
+        {% endif %} #}
       </div>
       <div class="input-area">
-        <input type="text" id="userInput" placeholder="Type your message..."/>
+        <!-- ***** MODIFIED: Changed placeholder text ***** -->
+        <textarea id="userInput" placeholder="Type your message (Enter to send, Shift+Enter for new line)..." rows="1" autocomplete="off"></textarea>
+        <!-- ***** END MODIFICATION ***** -->
         <button id="sendButton" aria-label="Send Message"><i class="fas fa-paper-plane"></i></button>
         <button id="voiceButton" aria-label="Use Voice Input"><i class="fas fa-microphone"></i></button>
         <button id="fileUploadButton" aria-label="Upload Image"><i class="fas fa-image"></i></button>
@@ -189,7 +276,8 @@
       </div>
       <div id="status" class="status-indicator"></div>
     </div>
+    <!-- Link JavaScript file -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
-<!-- END OF IMPROVED index.html -->
+<!-- END OF MODIFIED index.html -->

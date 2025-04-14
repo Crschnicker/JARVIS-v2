@@ -1,0 +1,15 @@
+# .dockerignore
+.git
+.gitignore
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.vscode/
+*.log
+docker-compose.yml
+README.md
+# Add any other files/folders not needed in the container

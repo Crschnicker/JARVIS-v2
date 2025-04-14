@@ -18,6 +18,7 @@ from enhanced_halo_api import HaloAPI, HaloAuthenticationError
 import prompts # Use updated prompts
 import functools
 
+
 # --- Enhanced Logging Setup ---
 log_level = os.getenv("LOG_LEVEL", "DEBUG")
 numeric_level = getattr(logging, log_level.upper(), logging.INFO)
