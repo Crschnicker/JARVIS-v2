@@ -1,0 +1,195 @@
+<!-- START OF IMPROVED index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halo Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      /* Header styling */
+      .header-area { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 0 15px; 
+        background-color: #eee; 
+        border-bottom: 1px solid #ddd; 
+      }
+      .header-area h1 { 
+        padding: 15px 0; 
+        margin: 0; 
+        flex-grow: 1; 
+        text-align: center; 
+        font-size: 1.2em; 
+        border-bottom: none; 
+        background-color: transparent;
+      }
+      .header-controls { 
+        display: flex; 
+        align-items: center; 
+        gap: 15px;
+      }
+      .header-button { 
+        background: none; 
+        border: none; 
+        color: #007bff; 
+        cursor: pointer; 
+        font-size: 0.9em; 
+        padding: 5px; 
+      }
+      .header-button:hover { 
+        text-decoration: underline; 
+      }
+      .logout-link { 
+        color: #dc3545; 
+        text-decoration: none; 
+        font-size: 0.9em; 
+      }
+      .logout-link:hover { 
+        text-decoration: underline; 
+      }
+      
+      /* Chat styling improvements */
+      .message {
+        padding: 10px 15px;
+        margin: 8px;
+        border-radius: 10px;
+        max-width: 80%;
+        word-wrap: break-word;
+      }
+      .user-message {
+        background-color: #007bff;
+        color: white;
+        align-self: flex-end;
+        margin-left: auto;
+      }
+      .bot-message {
+        background-color: #f1f1f1;
+        color: #333;
+        align-self: flex-start;
+        margin-right: auto;
+      }
+      .bot-message h1, .bot-message h2, .bot-message h3 {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+      .bot-message h1 { font-size: 1.3em; }
+      .bot-message h2 { font-size: 1.2em; }
+      .bot-message h3 { font-size: 1.1em; }
+      .bot-message ul, .bot-message ol {
+        margin: 0.5em 0;
+        padding-left: 1.5em;
+      }
+      .bot-message strong {
+        font-weight: bold;
+      }
+      .input-area {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        background-color: #f9f9f9;
+      }
+      .input-area input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        margin-right: 10px;
+      }
+      .input-area button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        margin-left: 5px;
+      }
+      .input-area button:hover {
+        background-color: #0056b3;
+      }
+      .input-area button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      
+      /* File upload styling */
+      #fileInput {
+        display: none; /* Hide the actual file input */
+      }
+      #fileUploadButton {
+        background-color: #28a745;
+      }
+      #fileUploadButton:hover {
+        background-color: #218838;
+      }
+      
+      /* Status indicator styling */
+      .status-indicator {
+        text-align: center;
+        padding: 5px;
+        font-size: 0.8em;
+        color: #666;
+        height: 20px;
+      }
+      
+      /* Spinner for loading states */
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 123, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #007bff;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="header-area">
+        <h1>Halo Assistant</h1>
+        <div class="header-controls">
+             <button id="startOverButton" class="header-button" title="Start New Conversation">
+                  <i class="fas fa-sync-alt"></i> Start Over
+             </button>
+             <a href="{{ url_for('logout') }}" class="logout-link" title="Logout">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+             </a>
+        </div>
+      </div>
+      <div id="chatbox">
+        {% for message in chat_history %}
+        <div class="message {{ message.role }}-message">
+          {% if message.role == 'model' %}
+            {{ message.content|safe }}
+          {% else %}
+            {{ message.content }}
+          {% endif %}
+        </div>
+        {% endfor %}
+        {% if not chat_history %}
+        <div class="message bot-message">
+          Hello {{ username }}! How can I help you with Halo tickets today?
+        </div>
+        {% endif %}
+      </div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message..."/>
+        <button id="sendButton" aria-label="Send Message"><i class="fas fa-paper-plane"></i></button>
+        <button id="voiceButton" aria-label="Use Voice Input"><i class="fas fa-microphone"></i></button>
+        <button id="fileUploadButton" aria-label="Upload Image"><i class="fas fa-image"></i></button>
+        <input type="file" id="fileInput" accept="image/*" />
+      </div>
+      <div id="status" class="status-indicator"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
+<!-- END OF IMPROVED index.html -->

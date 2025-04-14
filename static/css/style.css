@@ -1,0 +1,393 @@
+/* START OF IMPROVED style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Base font size */
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+#chatbox {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White chat background */
+    gap: 5px; /* Space between messages */
+    scrollbar-width: thin; /* Firefox scrollbar */
+    scrollbar-color: #adb5bd #f8f9fa;
+}
+#chatbox::-webkit-scrollbar { /* Webkit scrollbar */
+     width: 8px;
+}
+#chatbox::-webkit-scrollbar-track {
+     background: #f8f9fa;
+     border-radius: 10px;
+}
+#chatbox::-webkit-scrollbar-thumb {
+     background-color: #adb5bd;
+     border-radius: 10px;
+     border: 2px solid #f8f9fa;
+}
+
+
+.message {
+    padding: 10px 15px;
+    margin: 0; /* Remove default margins, rely on gap */
+    border-radius: 15px; /* Slightly rounder */
+    max-width: 85%; /* Allow slightly wider messages */
+    word-wrap: break-word;
+    line-height: 1.45; /* Improve readability */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+    border-bottom-right-radius: 5px; /* Tail effect */
+}
+
+.bot-message {
+    background-color: #e9ecef; /* Lighter grey */
+    color: #212529; /* Darker text */
+    align-self: flex-start;
+    margin-right: auto;
+    border-bottom-left-radius: 5px; /* Tail effect */
+}
+
+.bot-message a {
+    color: #0056b3; /* Darker blue for links */
+    text-decoration: underline;
+}
+
+.bot-message a:hover {
+    color: #003f7f;
+}
+
+.input-area {
+    display: flex;
+    padding: 10px 15px; /* Adjust padding */
+    border-top: 1px solid #dee2e6; /* Lighter border */
+    background-color: #f8f9fa; /* Match body background */
+    align-items: center;
+}
+
+.input-area input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 1em; /* Inherit base font size */
+    height: auto;
+    line-height: 1.4;
+    background-color: #fff; /* White input background */
+}
+.input-area input[type="text"]:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-area button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.input-area button:hover {
+    background-color: #0056b3;
+}
+.input-area button:active {
+    transform: scale(0.95); /* Click feedback */
+}
+
+.input-area button:disabled {
+    background-color: #adb5bd; /* Lighter disabled grey */
+    cursor: not-allowed;
+    transform: none;
+}
+#fileUploadButton {
+    background-color: #6c757d;
+}
+#fileUploadButton:hover {
+     background-color: #5a6268;
+ }
+
+.status-indicator {
+    text-align: center;
+    padding: 5px 10px; /* Add horizontal padding */
+    font-size: 0.8em;
+    color: #6c757d; /* Standard grey */
+    height: 20px;
+    line-height: 20px;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.spinner {
+     display: inline-block;
+     width: 14px;
+     height: 14px;
+     border: 2px solid rgba(0, 123, 255, 0.3);
+     border-radius: 50%;
+     border-top-color: #007bff;
+     animation: spin 1s linear infinite;
+     vertical-align: middle;
+     margin-left: 5px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Voice button state */
+#voiceButton.listening {
+    background-color: #dc3545; /* Red when listening */
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+/* Message formatting elements */
+.bot-message h1, .bot-message h2, .bot-message h3 {
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    font-weight: 600;
+    line-height: 1.2;
+}
+.bot-message h1 { font-size: 1.25em; }
+.bot-message h2 { font-size: 1.15em; }
+.bot-message h3 { font-size: 1.05em; }
+
+.bot-message ul, .bot-message ol {
+    margin: 0.5em 0 0.8em 0; /* Adjust spacing */
+    padding-left: 1.7em;
+}
+.bot-message ul li, .bot-message ol li {
+    margin-bottom: 0.4em;
+}
+
+.bot-message strong, .bot-message b {
+    font-weight: 600;
+}
+.bot-message em, .bot-message i {
+    font-style: italic;
+}
+
+.bot-message code {
+    background-color: rgba(0,0,0,0.06); /* Subtle code background */
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.9em;
+}
+.bot-message pre {
+    background-color: #f1f3f5; /* Slightly different grey for pre */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 1px solid #dee2e6;
+}
+.bot-message pre code { /* Code inside pre */
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit; /* Inherit pre font size */
+}
+
+
+/* --- Ticket List Specific Styles --- */
+.ticket-list {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Space between items */
+}
+
+.ticket-item {
+    background-color: #f8f9fa; /* Light background for each item */
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 3px solid #17a2b8; /* Info color border */
+    display: flex;
+    flex-direction: column; /* Stack info and actions */
+    justify-content: space-between;
+    align-items: flex-start; /* Align content to start */
+    transition: background-color 0.2s ease;
+}
+.ticket-item:hover {
+    background-color: #f1f3f5; /* Slight hover effect */
+}
+
+.ticket-info {
+     display: block; /* Ensure info takes full width initially */
+     margin-bottom: 5px; /* Space between info and actions */
+}
+
+.ticket-id {
+    color: #007bff;
+    font-weight: 600; /* Make ID bolder */
+    margin-right: 5px;
+}
+
+.ticket-summary {
+    color: #495057; /* Slightly muted summary text */
+}
+
+.ticket-actions {
+    display: flex;
+    gap: 8px; /* Increase gap between buttons */
+    margin-top: 5px;
+    align-self: flex-start; /* Keep actions aligned left */
+}
+
+.ticket-action-btn {
+    background-color: #ffffff; /* White buttons */
+    border: 1px solid #ced4da; /* Grey border */
+    color: #495057; /* Dark grey text */
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 0.85em; /* Slightly smaller button text */
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.ticket-action-btn:hover {
+    background-color: #f1f3f5; /* Light grey hover */
+    border-color: #adb5bd;
+    color: #212529;
+}
+
+/* Style specific buttons */
+.ticket-action-btn.view-btn {
+    border-color: #17a2b8; color: #17a2b8;
+}
+.ticket-action-btn.view-btn:hover {
+     background-color: #e3f2fd;
+}
+
+.ticket-action-btn.note-btn {
+    border-color: #28a745; color: #28a745;
+}
+.ticket-action-btn.note-btn:hover {
+     background-color: #e8f5e9;
+}
+
+.ticket-action-btn.update-btn {
+    border-color: #ffc107; color: #ffc107;
+}
+.ticket-action-btn.update-btn:hover {
+     background-color: #fff9e6;
+}
+
+
+/* Login page styling (Already provided, keeping consistent) */
+.login-container { /* Copied from previous for completeness */
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    max-width: 90%;
+    text-align: center; /* Center heading */
+}
+.login-container h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+    font-size: 1.8em;
+     border-bottom: none;
+     background-color: transparent;
+}
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+     text-align: left;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em; /* Use relative unit */
+     box-sizing: border-box;
+}
+.login-form button {
+    width: 100%;
+    padding: 12px 20px; /* Match input padding */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em; /* Slightly larger button text */
+     transition: background-color 0.3s ease;
+}
+.login-form button:hover {
+    background-color: #0056b3;
+}
+
+.flash-messages {
+     margin-bottom: 15px;
+     text-align: center;
+}
+.flash-error, .flash-warning, .flash-info, .flash-success {
+     border: 1px solid;
+     padding: 10px 15px; /* More padding */
+     border-radius: 4px;
+     font-size: 0.95em; /* Slightly larger flash text */
+}
+.flash-error {
+    background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;
+}
+.flash-warning {
+   background-color: #fff3cd; color: #856404; border-color: #ffeeba;
+}
+.flash-info {
+   background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb;
+}
+.flash-success {
+   background-color: #d4edda; color: #155724; border-color: #c3e6cb;
+}
+
+/* END OF IMPROVED style.css */
